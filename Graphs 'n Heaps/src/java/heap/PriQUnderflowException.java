@@ -7,7 +7,7 @@ package heap;
 
 /**
  * This exception is thrown when an empty priority queue attempts to dequeue.
- * @author amm28964
+ * @author Xan Mead
  */
 public class PriQUnderflowException extends Exception {
 
