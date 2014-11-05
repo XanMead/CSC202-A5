@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Xan Mead 2014
+${licensePrefix}CSC 202/73N${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>
