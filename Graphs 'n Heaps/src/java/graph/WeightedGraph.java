@@ -4,6 +4,7 @@
  */
 package graph;
 
+import adt.queue.Queue;
 import adt.queue.QueueInterface;
 
 /**
@@ -11,6 +12,8 @@ import adt.queue.QueueInterface;
  * This graph is directed and weighted.
  * Edge values are integers.
  * The {@code equals} method of vertices is used throughout.
+ * General precondition: Vertices passed as arguments to non-additive or
+ * non-interrogative methods exist in the graph.
  * @author Xan Mead
  */
 public class WeightedGraph<T> implements WeightedGraphInterface<T> {
@@ -33,7 +36,7 @@ public class WeightedGraph<T> implements WeightedGraphInterface<T> {
 	 */
 	private boolean[] marks;
 	
-	/** Denotes the weight of the edge from [Vertex A] to [Vertex B]. */
+	/** Denotes the weight of the edge between [fromIndex] and [toIndex]. */
 	private int[][] edges;
 	
 	/**
@@ -66,9 +69,9 @@ public class WeightedGraph<T> implements WeightedGraphInterface<T> {
 	/**
 	 * {@inheritDoc}
 	 * Preconditions:
-	 *		The vertex is not null.
-	 *		The vertex does not already exist in the graph.
-	 *		The graph is not full.
+	 *	The vertex is not null.
+	 *	The vertex does not already exist in the graph.
+	 *	The graph is not full.
 	 */
 	@Override
 	public void addVertex(T vertex) {
@@ -98,8 +101,8 @@ public class WeightedGraph<T> implements WeightedGraphInterface<T> {
 	/**
 	 * {@inheritDoc}
 	 * Preconditions:
-	 *		Both vertices exist in the graph.
-	 *		Weight is positive.
+	 *	Both vertices exist in the graph.
+	 *	Weight is positive.
 	 */
 	@Override
 	public void addEdge(T fromVertex, T toVertex, int weight) {
@@ -114,27 +117,41 @@ public class WeightedGraph<T> implements WeightedGraphInterface<T> {
 
 	@Override
 	public int weightIs(T fromVertex, T toVertex) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		int row = indexOf(fromVertex);
+		int column = indexOf(toVertex);
+		
+		return edges[row][column];
 	}
 
 	@Override
 	public QueueInterface<T> getToVertices(T vertex) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		Queue<T> adj = new Queue<>();
+		int fromIndex = indexOf(vertex);
+		for (int toIndex = 0; toIndex < numVertices; toIndex++) {
+			if (edges[fromIndex][toIndex] != NULL_EDGE) {
+				adj.enqueue(vertices[toIndex]);
+			}
+		}
+		return adj;
 	}
 
 	@Override
 	public void clearMarks() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		for (int i = 0; i < maxVertices; i++) {
+			marks[i] = false;
+		}
 	}
 
 	@Override
 	public void markVertex(T vertex) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		int index = indexOf(vertex);
+		marks[index] = true;
 	}
 
 	@Override
 	public boolean isMarked(T vertex) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		int index = indexOf(vertex);
+		return marks[index];
 	}
 	
 	/**
