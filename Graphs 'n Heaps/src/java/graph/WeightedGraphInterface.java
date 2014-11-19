@@ -7,8 +7,9 @@ package graph;
 import adt.queue.QueueInterface;
 
 /**
- *
- * @author HP
+ * A class that implements this interface will meet the ADT specifications for
+ * a weighted, directed graph.
+ * @author Xan Mead
  */
 public interface WeightedGraphInterface<T> {
 	
