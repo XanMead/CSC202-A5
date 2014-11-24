@@ -15,8 +15,9 @@ public class HeapDriver {
 	public static void main(String[] args) {
 		String set = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		
-		Heap<String> heap = new Heap<String>(50);
+		Heap<String> heap = new Heap<>(50);
 		
+                System.out.println("~ENQUEING~");
 		System.out.print("Order of insertion:");
 		for (int i = 0; i < 50; i++) {
 			if (i%5 == 0) {
@@ -34,7 +35,8 @@ public class HeapDriver {
 		}
 		System.out.println();
 		
-		System.out.println("Dequeing (should be sorted):");
+		System.out.println("~DEQUEING~");
+                System.out.print("(Output should be sorted):");
 		int index = 0;
 		while(!heap.isEmpty()) {
 			if (index%5 == 0) {
