@@ -31,20 +31,17 @@ public class Heap <T extends Comparable<T>> implements PriQueueInterface<T> {
 		this.lastIndex = -1;
 		this.maxIndex = maxSize - 1;
 	}
-	
-	/** {@inheritDoc} */
+
 	@Override
 	public boolean isEmpty() {
 		return lastIndex == -1;
 	}
-	
-	/** {@inheritDoc} */
+
 	@Override
 	public boolean isFull() {
 		return lastIndex == maxIndex;
 	}
-	
-	/** {@inheritDoc} */
+
 	@Override
 	public void enqueue(T element) throws PriQOverflowException {
 		if (lastIndex == maxIndex) {
@@ -57,7 +54,6 @@ public class Heap <T extends Comparable<T>> implements PriQueueInterface<T> {
 		}
 	}
 	
-	/** {@inheritDoc} */
 	@Override
 	public T dequeue() throws PriQUnderflowException {
 		T result;
@@ -78,7 +74,7 @@ public class Heap <T extends Comparable<T>> implements PriQueueInterface<T> {
 	}
 	
 	/**
-	 * adds an element to the heap such that the order property is maintained.
+	 * Adds an element to the heap such that the order property is maintained.
 	 * Used by {@link #enqueue(java.lang.Comparable)}
 	 * @precondition Heap must not be full.
 	 * @param element Element to be inserted.
@@ -123,15 +119,34 @@ public class Heap <T extends Comparable<T>> implements PriQueueInterface<T> {
 		int left = (hole * 2) + 1;
 		int right = (hole * 2) + 2;
 		
-		T leftElm = elements.get(left);
-		T rightElm = elements.get(right);
+		
+		T leftElm;
+		T rightElm;
 		
 		if (left > lastIndex) {
 			// The hole has no children!
 			return hole;
 		}
+		
+		leftElm = elements.get(left);
+		
+		if (left == lastIndex) {
+			// hole has only one child
+			// compare left and hole
+			if (leftElm.compareTo(element) > 0) {
+				return left;
+			}
+			else {
+				return hole;
+			}
+		}
+		
+		// If this point is reached, the hole has two children
+		
+		rightElm = elements.get(right);
+		
 		if (leftElm.compareTo(rightElm) < 0) {
-			// left element could be greater
+			// right element could be greater
 			if (rightElm.compareTo(element) <= 0) {
 				// current hole is satisfactory
 				return hole;
@@ -142,7 +157,7 @@ public class Heap <T extends Comparable<T>> implements PriQueueInterface<T> {
 			}
 		}
 		else {
-			// right element could be greater
+			// left element could be greater
 			if (leftElm.compareTo(element) <= 0) {
 				// current hole is satisfactory
 				return hole;

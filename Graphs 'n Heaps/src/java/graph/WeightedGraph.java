@@ -100,9 +100,7 @@ public class WeightedGraph<T> implements WeightedGraphInterface<T> {
 
 	/**
 	 * {@inheritDoc}
-	 * Preconditions:
-	 *	Both vertices exist in the graph.
-	 *	Weight is positive.
+	 * Precondition: Weight is positive.
 	 */
 	@Override
 	public void addEdge(T fromVertex, T toVertex, int weight) {
